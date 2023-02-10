@@ -2,7 +2,8 @@
 <html>
 <head>
     <meta charset="utf-8"/>
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
     <title>Mon super Site</title>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -13,7 +14,10 @@
                 <div class="w-full justify-between flex items-center">
                     <a class="flex-shrink-0 text-white" href="/">My App</a>
                     <div class="md:block">
-                            <a class="text-gray-300  hover:text-white px-3 py-2 rounded-md text-sm font-medium" href="/">Home</a>
+                        <a class="text-gray-300  hover:text-white px-3 py-2 rounded-md text-sm font-medium" href="/">Home</a>
+                        <a class="text-gray-300  hover:text-white px-3 py-2 rounded-md text-sm font-medium" href="/game">Games</a>
+                        <a class="text-gray-300  hover:text-white px-3 py-2 rounded-md text-sm font-medium" href="/player">Players</a>
+                        <a class="text-gray-300  hover:text-white px-3 py-2 rounded-md text-sm font-medium" href="/score">Scores</a>
                     </div>
                 </div>
             </div>
@@ -22,9 +26,9 @@
 </div>
 
 <main class="flex-grow bg-gray-100 flex flex-col" role="main">
-    <div class="flex-grow bg-white 	 w-full max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 z-20">
-            <?php include $templateName . ".php"; ?>
-        </div>
+    <div class="flex-grow	 w-full max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 z-20">
+        <?php include $templateName . ".php"; ?>
+    </div>
     </div>
 </main>
 
@@ -34,7 +38,7 @@
             <li class="my-2">
                 <a class="text-gray-400 hover:text-gray-100 dark:text-gray-300 dark:hover:text-white transition-colors duration-200"
                    href="#">
-                    &copy prénom NOM - 2021
+                    &copy prénom NOM - 2025
                 </a>
             </li>
         </ul>

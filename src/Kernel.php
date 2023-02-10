@@ -3,12 +3,24 @@
 namespace App;
 
 use App\Controller\HomeController;
+use Doctrine\DBAL\DriverManager;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\ORMSetup;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class Kernel
 {
+
+    private EntityManagerInterface $entityManager;
+
+    public function __construct()
+    {
+        $this->entityManager = $this->buildEntityManager();
+
+    }
 
     public function handle(Request $request)
     {
@@ -31,18 +43,21 @@ class Kernel
             list($controller, $method) = [...explode("/", $path), "index"];
             $className = "App\\Controller\\" . ucfirst($controller) . "Controller";
             if ($className === $defaultController && $method === "index") {
-                /** @todo we called index of $defaultController, make a redirection to / here WITHOUT using the header function. */
                 return new RedirectResponse("/");
             }
         }
 
         if (!class_exists($className)
             || !method_exists($className, $method)) {
-            /** @todo return a not found response here (status code 404) */
             return new Response("Controller not found", Response::HTTP_NOT_FOUND);
         }
 
-        $resolvedArguments = $this->paramResolver($className, $method, [Request::class => $request]);
+        $container = [
+            Request::class => $request,
+            EntityManagerInterface::class => $this->getEntityManager(),
+        ];
+
+        $resolvedArguments = $this->paramResolver($className, $method, $container);
         return call_user_func_array([new $className(), $method], $resolvedArguments);
 
     }
@@ -63,5 +78,30 @@ class Kernel
 
         return $paramValues;
     }
+
+
+    private function buildEntityManager(): EntityManager
+    {
+        // Create a simple "default" Doctrine ORM configuration for Annotations
+        $config = ORMSetup::createAttributeMetadataConfiguration(
+            paths: array(__DIR__."/../src"),
+            isDevMode: true,
+        );
+
+        $connection = DriverManager::getConnection([
+            'driver' => 'pdo_sqlite',
+            'path' => __DIR__ . '/../db.sqlite',
+        ], $config);
+
+        // obtaining the entity manager
+        return new EntityManager($connection, $config);
+    }
+
+    public function getEntityManager(): EntityManager
+    {
+        return $this->entityManager;
+
+    }
+
 
 }

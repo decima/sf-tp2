@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use \Symfony\Component\HttpFoundation\Response;
 
 abstract class AbstractController
@@ -14,5 +15,9 @@ abstract class AbstractController
         $content = ob_get_contents();
         ob_end_clean();
         return new Response($content);
+    }
+
+    public function redirectTo($path):Response{
+        return new RedirectResponse($path);
     }
 }
