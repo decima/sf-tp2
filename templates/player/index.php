@@ -13,20 +13,20 @@
                 </div>
                 <div class=" flex flex-col">
                     <span class="text-gray-600 dark:text-white text-lg font-medium">
-        <?= $player["username"]; ?>
+        <?= $player->username; ?>
                     </span>
                     <span class="text-gray-400 text-xs">
-                        <?= $player["email"]; ?>
+                        <?= $player->email; ?>
                     </span>
                     <span class="text-gray-400 text-xs">
 
-                        <a class="hover:text-gray-600" href="/player/show?id=<?= $player["id"]; ?>">
+                        <a class="hover:text-gray-600" href="/player/show?id=<?= $player->id; ?>">
                             <i class="fas fa-eye"></i>
                         </a>
-                        <a class="hover:text-gray-600" href="/player/edit?id=<?= $player["id"]; ?>">
+                        <a class="hover:text-gray-600" href="/player/edit?id=<?= $player->id; ?>">
                             <i class="fas fa-edit"></i>
                         </a>
-                        <a class="hover:text-gray-600" href="/player/delete?id=<?= $player["id"]; ?>"
+                        <a class="hover:text-gray-600" href="/player/delete?id=<?= $player->id; ?>"
                            onclick="return confirm('Are you sure you want to delete it?')">
                             <i class="fas fa-trash"></i>
                         </a>
