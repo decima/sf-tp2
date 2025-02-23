@@ -9,8 +9,8 @@ class HomeController extends AbstractController
 {
     public function index(Request $request): Response
     {
-        return $this->render(
-            "home/index",
+        return $this->renderTwig(
+            "home/index.html.twig",
             [
                 "name" => $request->query->get('name')
             ]
